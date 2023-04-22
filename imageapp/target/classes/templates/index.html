@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+
+<title>Image Gallery Application</title>
+
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+    table,th,div{
+        color: black;
+        text-align: center;
+        border-collapse: separate;
+        border-spacing: 2px;
+
+
+    }
+</style>
+<body>
+
+        <div class="container my-3 ">
+        <h1>Image Stock</h1>
+    
+        <form th:action="@{/index}">
+            Filter:<input type="text" name="keyword" id="keyword" size="15"
+                th:value="${keyword}" required /> &nbsp;
+                <input type="submit" 
+                value="Search" /> &nbsp;
+                <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+
+                <script type="text/javascript">
+                function clearSearch(){
+                    window.location= "[[@{/}]]";
+                }
+            </script>
+        </form>
+    <br>
+    <div> <a th:href="@{/showNewImageForm}" class="btn btn-primary btn-sm mb-3"> Add New Image</a></div><br>
+    <table border="1" class="table table-hover">
+        <thead>
+            <tr class="active">
+            <th>Image Id</th>
+                <th>Image Name</th>
+                <th>Image Price</th>
+                <th>Image</th>
+                <th>Action</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="image:${listImage}">
+            <td th:text="${image.id}"></td>
+                <td th:text="${image.imageName}"></td>
+                <td th:text="${image.price}"></td>
+
+                <td><img th:src="${image.photosImagePath}" class="img-round" alt="No pic" width="100" height="60"/>
+                <td> <a th:href="@{/showFormForUpdate/{id}(id=${image.id})}" class="btn btn-primary">Update</a>
+                <td> <a th:href="@{/deleteimage/{id}(id=${image.id})}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+            </table>
+
+            
+            
+            <!-- code below for pagination-->
+
+            <div th:if="${totalPages>1}">
+                    <div class="row col-sm-10">
+                        <div class="col-sm-100">Total Rows: [[${totalItems}]]</div>
+
+
+                        <div class="col-sm-100">
+
+                            <a th:if="${currentPage < totalPages}"
+                                th:href="@{'/page/' + ${currentPage+1} + '?sortField=' + ${sortField} + '&sortDirectory=' + ${sortDirectory}}"> Next</a>
+                            <span th:unless="${currentPage<totalPages}">Next</span><span
+                                th:each="i: ${#numbers.sequence(1, totalPages)}"><a
+                                th:if="${currentPage != i}"
+                                th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDirectory=' + ${sortDirectory}}"> [[${i}]]</a>
+                                <span th:unless="${currentPage != i}">[[${i}]]</span>
+                            </span> <a th:if="${currentPage < totalPages}"
+                                    th:href="@{'/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDirectory=' + ${sortDirectory}}">Last</a>
+                            <span th:unless="${currentPage<totalPages}"> Last</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+</body>
+</html>
+
+
+
+
+
+

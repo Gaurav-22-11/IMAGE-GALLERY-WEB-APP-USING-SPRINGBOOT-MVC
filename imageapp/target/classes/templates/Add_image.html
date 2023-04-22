@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Image Gallery Application</title>
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7T27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+</head>
+<body>
+<div align="center">
+    <h1>New Photo</h1>
+    <br />
+    <form action="#" th:action="@{/saveImage}" th:object="${image}"
+            method="post" enctype="multipart/form-data">
+
+            <table>
+                <tr>
+                    <td>Image Name:</td>
+                    <td><input type="text" th:field="${image.imageName}" placeholder="Image Name"/></td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td><input type="text" th:field="${image.price}" placeholder="Price"/></td>
+                </tr>
+
+                    <tr>
+                    <td>Image:</td>
+                    <td><input type="file" name="img" accept="image/png,image/jpg,image/gif,image/jpeg"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit" class="btn btn-primary">Save Image</button></td>
+                </tr>
+            </table>
+        </form>
+        <a th:href="@{/}">Back to Gallery</a>
+    </div>
+</body>
+</html>
+
