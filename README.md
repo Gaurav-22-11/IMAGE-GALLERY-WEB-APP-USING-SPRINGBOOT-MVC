@@ -1,1 +1,3 @@
 # IMAGE-GALLERY-WEB-APP-USING-SPRINGBOOT-MVC
+
+A project completed for the 6th semester course - UE20CS352 - OBJECT ORIENTED ANALYSIS AND DESIGN WITH JAVA at PES University.
